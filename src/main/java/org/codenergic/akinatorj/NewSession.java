@@ -29,13 +29,13 @@ import okhttp3.Response;
 public class NewSession {
 	private static final Pattern SESSION_PATTERN = Pattern.compile("var uid_ext_session = '(.*)'\\;\\n.*var frontaddr = '(.*)'\\;");
 	private static final Logger LOGGER = LoggerFactory.getLogger(NewSession.class);
-	private AkinatorJ akinatorJ;
+	private final AkinatorJ akinatorJ;
 
 	NewSession(AkinatorJ akinatorJ) {
 		this.akinatorJ = akinatorJ;
 	}
 
-	NewSessionResponse newSession(String language) throws IOException {
+	Session newSession(String language) throws IOException {
 		SessionInfo sessionInfo = getSessionInfo();
 		String server = Region.getServer(language);
 		String newSessionUrl = String.format(Urls.NEW_SESSION_URL, server, sessionInfo.getUid(), sessionInfo.getFrontAddr());
@@ -46,10 +46,12 @@ public class NewSession {
 		if (!newSessionResponse.getCompletion().equals("OK")) {
 			throw new IllegalStateException("Completion: " + newSessionResponse.getCompletion());
 		}
-		return newSessionResponse;
+		LOGGER.debug("Identification: {}", newSessionResponse.getParameters().getIdentification());
+		LOGGER.debug("Step Information: {}", newSessionResponse.getParameters().getStepInformation());
+		return new Session(akinatorJ, sessionInfo, server, newSessionResponse);
 	}
 
-	SessionInfo getSessionInfo() throws IOException {
+	private SessionInfo getSessionInfo() throws IOException {
 		Request request = new Request.Builder().url("https://en.akinator.com/game").build();
 		Response response = akinatorJ.getOkHttpClient().newCall(request).execute();
 		if (response.code() != 200) {
@@ -62,9 +64,9 @@ public class NewSession {
 			throw new IllegalStateException("Cannot find uid and frontaddr");
 		}
 		String uid = matcher.group(1);
-		String frontaddr = matcher.group(2);
-		LOGGER.debug("Session info: uid={}, frontaddr={}", uid, frontaddr);
-		return new SessionInfo(uid, frontaddr);
+		String frontAddr = matcher.group(2);
+		LOGGER.debug("Session info: uid={}, frontaddr={}", uid, frontAddr);
+		return new SessionInfo(uid, frontAddr);
 	}
 
 

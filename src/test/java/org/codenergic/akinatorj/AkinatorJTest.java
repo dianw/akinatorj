@@ -17,7 +17,7 @@ package org.codenergic.akinatorj;
 
 import java.io.IOException;
 
-import org.codenergic.akinatorj.model.NewSessionResponse;
+import org.codenergic.akinatorj.model.StepInformation;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,14 +26,17 @@ public class AkinatorJTest {
 	private AkinatorJ akinatorJ = new AkinatorJ();
 
 	@Test
-	public void testNewSession() throws IOException {
-		NewSession newSession = new NewSession(akinatorJ);
-		SessionInfo sessionInfo = newSession.getSessionInfo();
-		assertThat(sessionInfo.getUid()).isNotBlank()
+	public void testNewSessionAndAnswer() throws IOException {
+		Session session = akinatorJ.newSession("");
+		assertThat(session.getSessionInfo().getUid()).isNotBlank()
 				.containsPattern("[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}");
-		assertThat(sessionInfo.getFrontAddr()).isNotBlank();
+		assertThat(session.getSessionInfo().getFrontAddr()).isNotBlank();
+		assertThat(session.getNewSessionResponse().getCompletion()).isEqualTo("OK");
+		assertThat(session.getNewSessionResponse().getParameters().getStepInformation().getStep()).isEqualTo("0");
 
-		NewSessionResponse resp = newSession.newSession("");
-		assertThat(resp.getCompletion()).isEqualTo("OK");
+		Step step = new Step(session);
+		StepInformation stepInformation = step.answer(0);
+		assertThat(stepInformation.getStep()).isEqualTo("1");
+		assertThat(session.getNewSessionResponse().getParameters().getStepInformation()).isEqualTo(stepInformation);
 	}
 }

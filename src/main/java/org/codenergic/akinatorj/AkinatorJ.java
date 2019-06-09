@@ -15,6 +15,8 @@
  */
 package org.codenergic.akinatorj;
 
+import java.io.IOException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import okhttp3.OkHttpClient;
@@ -32,11 +34,15 @@ public class AkinatorJ {
 		this(new OkHttpClient());
 	}
 
-	public OkHttpClient getOkHttpClient() {
+	public Session newSession(String language) throws IOException {
+		return new NewSession(this).newSession(language);
+	}
+
+	OkHttpClient getOkHttpClient() {
 		return okHttpClient;
 	}
 
-	public ObjectMapper getObjectMapper() {
+	ObjectMapper getObjectMapper() {
 		return objectMapper;
 	}
 }

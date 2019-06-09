@@ -28,14 +28,7 @@ public class StepInformation {
 	private String questionid;
 	private String infogain;
 	private String statusMinibase;
-
-	public String getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(String question) {
-		this.question = question;
-	}
+	private List<String> options;
 
 	public List<Answer> getAnswers() {
 		return answers;
@@ -43,30 +36,6 @@ public class StepInformation {
 
 	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;
-	}
-
-	public String getStep() {
-		return step;
-	}
-
-	public void setStep(String step) {
-		this.step = step;
-	}
-
-	public String getProgression() {
-		return progression;
-	}
-
-	public void setProgression(String progression) {
-		this.progression = progression;
-	}
-
-	public String getQuestionid() {
-		return questionid;
-	}
-
-	public void setQuestionid(String questionid) {
-		this.questionid = questionid;
 	}
 
 	public String getInfogain() {
@@ -77,6 +46,38 @@ public class StepInformation {
 		this.infogain = infogain;
 	}
 
+	public List<String> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<String> options) {
+		this.options = options;
+	}
+
+	public String getProgression() {
+		return progression;
+	}
+
+	public void setProgression(String progression) {
+		this.progression = progression;
+	}
+
+	public String getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+
+	public String getQuestionid() {
+		return questionid;
+	}
+
+	public void setQuestionid(String questionid) {
+		this.questionid = questionid;
+	}
+
 	@JsonProperty("status_minibase")
 	public String getStatusMinibase() {
 		return statusMinibase;
@@ -84,5 +85,26 @@ public class StepInformation {
 
 	public void setStatusMinibase(String statusMinibase) {
 		this.statusMinibase = statusMinibase;
+	}
+
+	public String getStep() {
+		return step;
+	}
+
+	public void setStep(String step) {
+		this.step = step;
+	}
+
+	@Override
+	public String toString() {
+		return "StepInformation{" +
+				"question='" + question + '\'' +
+				", answers=" + answers +
+				", step='" + step + '\'' +
+				", progression='" + progression + '\'' +
+				", questionid='" + questionid + '\'' +
+				", infogain='" + infogain + '\'' +
+				", statusMinibase='" + statusMinibase + '\'' +
+				'}';
 	}
 }

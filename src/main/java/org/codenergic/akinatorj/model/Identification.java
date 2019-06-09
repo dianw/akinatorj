@@ -51,8 +51,18 @@ public class Identification {
 	public String getSignature() {
 		return signature;
 	}
-	
+
 	public void setSignature(String signature) {
 		this.signature = signature;
+	}
+
+	@Override
+	public String toString() {
+		return "Identification{" +
+				"channel=" + channel +
+				", session='" + session + '\'' +
+				", signature='" + signature + '\'' +
+				", challengeAuth='" + challengeAuth + '\'' +
+				'}';
 	}
 }
