@@ -15,9 +15,26 @@
  */
 package org.codenergic.akinatorj;
 
-public class Urls {
+import java.io.IOException;
+
+import okhttp3.Request;
+import okhttp3.Response;
+
+class Urls {
 	static final String NEW_SESSION_URL = "https://%s/ws/new_session?partner=1&player=website-desktop&uid_ext_session=%s&frontaddr=%s&constraint=ETAT%%3C%%3E%%27AV%%27&constraint=ETAT<>'AV'";
 	static final String ANSWER_URL = "https://%s/ws/answer?callback=&session=%s&signature=%s&step=%s&answer=%s";
 	static final String BACK_URL = "https://%s/ws/answer?callback=&session=%s&signature=%s&step=%s&answer=-1";
 	static final String WIN_URL = "https://%s/ws/list?callback=&session=%s&signature=%s&step=%s";
+
+	static <T> T sendRequest(AkinatorJ akinatorJ, String url, Class<T> clazz) throws IOException {
+		Request request = new Request.Builder().url(url).build();
+		Response response = akinatorJ.getOkHttpClient().newCall(request).execute();
+		return akinatorJ.getObjectMapper().readValue(response.body().bytes(), clazz);
+	}
+
+	static String sendRequest(AkinatorJ akinatorJ, String url) throws IOException {
+		Request request = new Request.Builder().url(url).build();
+		Response response = akinatorJ.getOkHttpClient().newCall(request).execute();
+		return response.body().string();
+	}
 }

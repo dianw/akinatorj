@@ -23,10 +23,7 @@ import org.codenergic.akinatorj.model.NewSessionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import okhttp3.Request;
-import okhttp3.Response;
-
-public class NewSession {
+class NewSession {
 	private static final Pattern SESSION_PATTERN = Pattern.compile("var uid_ext_session = '(.*)'\\;\\n.*var frontaddr = '(.*)'\\;");
 	private static final Logger LOGGER = LoggerFactory.getLogger(NewSession.class);
 	private final AkinatorJ akinatorJ;
@@ -40,9 +37,7 @@ public class NewSession {
 		String server = Region.getServer(language);
 		String newSessionUrl = String.format(Urls.NEW_SESSION_URL, server, sessionInfo.getUid(), sessionInfo.getFrontAddr());
 		LOGGER.debug("Requesting new session: {}", newSessionUrl);
-		Request request = new Request.Builder().url(newSessionUrl).build();
-		Response response = akinatorJ.getOkHttpClient().newCall(request).execute();
-		NewSessionResponse newSessionResponse = akinatorJ.getObjectMapper().readValue(response.body().bytes(), NewSessionResponse.class);
+		NewSessionResponse newSessionResponse = Urls.sendRequest(akinatorJ, newSessionUrl, NewSessionResponse.class);
 		if (!newSessionResponse.getCompletion().equals("OK")) {
 			throw new IllegalStateException("Completion: " + newSessionResponse.getCompletion());
 		}
@@ -52,12 +47,7 @@ public class NewSession {
 	}
 
 	private SessionInfo getSessionInfo() throws IOException {
-		Request request = new Request.Builder().url("https://en.akinator.com/game").build();
-		Response response = akinatorJ.getOkHttpClient().newCall(request).execute();
-		if (response.code() != 200) {
-			throw new IllegalStateException("Response code: " + response.code());
-		}
-		String responseBody = response.body().string();
+		String responseBody = Urls.sendRequest(akinatorJ, "https://en.akinator.com/game");
 		Matcher matcher = SESSION_PATTERN.matcher(responseBody);
 		if (!matcher.find()) {
 			LOGGER.debug("Response body: \n{}", responseBody);

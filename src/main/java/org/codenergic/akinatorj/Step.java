@@ -7,9 +7,6 @@ import org.codenergic.akinatorj.model.StepInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import okhttp3.Request;
-import okhttp3.Response;
-
 class Step {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Step.class);
 	private final Session session;
@@ -24,9 +21,7 @@ class Step {
 		String answerUrl = String.format(Urls.ANSWER_URL, session.getServer(), session.getSession(),
 				session.getSignature(), session.getStep(), String.valueOf(answer));
 		LOGGER.debug("Sending answer: {}", answerUrl);
-		Request request = new Request.Builder().url(answerUrl).build();
-		Response response = session.getOkHttpClient().newCall(request).execute();
-		AnswerResponse answerResponse = session.getObjectMapper().readValue(response.body().bytes(), AnswerResponse.class);
+		AnswerResponse answerResponse = Urls.sendRequest(session.getAkinatorJ(), answerUrl, AnswerResponse.class);
 		if (!answerResponse.getCompletion().equals("OK")) {
 			throw new IllegalStateException("Completion: " + answerResponse.getCompletion());
 		}

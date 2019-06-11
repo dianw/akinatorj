@@ -20,6 +20,10 @@ class Session {
 		this.newSessionResponse = newSessionResponse;
 	}
 
+	public AkinatorJ getAkinatorJ() {
+		return akinatorJ;
+	}
+
 	NewSessionResponse getNewSessionResponse() {
 		return newSessionResponse;
 	}
