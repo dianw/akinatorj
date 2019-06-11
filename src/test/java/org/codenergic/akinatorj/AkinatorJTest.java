@@ -37,6 +37,10 @@ public class AkinatorJTest {
 		Step step = new Step(session);
 		StepInformation stepInformation = step.answer(0);
 		assertThat(stepInformation.getStep()).isEqualTo("1");
-		assertThat(session.getNewSessionResponse().getParameters().getStepInformation()).isEqualTo(stepInformation);
+		assertThat(session.getCurrentStepInformation()).isEqualTo(stepInformation);
+
+		StepInformation backStepInformation = step.back();
+		assertThat(backStepInformation.getStep()).isEqualTo("0");
+		assertThat(session.getCurrentStepInformation()).isEqualTo(backStepInformation);
 	}
 }

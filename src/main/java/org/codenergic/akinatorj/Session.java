@@ -3,10 +3,6 @@ package org.codenergic.akinatorj;
 import org.codenergic.akinatorj.model.NewSessionResponse;
 import org.codenergic.akinatorj.model.StepInformation;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import okhttp3.OkHttpClient;
-
 class Session {
 	private final AkinatorJ akinatorJ;
 	private final SessionInfo sessionInfo;
@@ -24,16 +20,12 @@ class Session {
 		return akinatorJ;
 	}
 
+	StepInformation getCurrentStepInformation() {
+		return newSessionResponse.getParameters().getStepInformation();
+	}
+
 	NewSessionResponse getNewSessionResponse() {
 		return newSessionResponse;
-	}
-
-	ObjectMapper getObjectMapper() {
-		return akinatorJ.getObjectMapper();
-	}
-
-	OkHttpClient getOkHttpClient() {
-		return akinatorJ.getOkHttpClient();
 	}
 
 	String getServer() {

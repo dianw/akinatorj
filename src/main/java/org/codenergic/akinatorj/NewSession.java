@@ -34,7 +34,7 @@ class NewSession {
 
 	Session newSession(String language) throws IOException {
 		SessionInfo sessionInfo = getSessionInfo();
-		String server = Region.getServer(language);
+		String server = Urls.getServerUrl(language);
 		String newSessionUrl = String.format(Urls.NEW_SESSION_URL, server, sessionInfo.getUid(), sessionInfo.getFrontAddr());
 		LOGGER.debug("Requesting new session: {}", newSessionUrl);
 		NewSessionResponse newSessionResponse = Urls.sendRequest(akinatorJ, newSessionUrl, NewSessionResponse.class);
@@ -58,6 +58,4 @@ class NewSession {
 		LOGGER.debug("Session info: uid={}, frontaddr={}", uid, frontAddr);
 		return new SessionInfo(uid, frontAddr);
 	}
-
-
 }
