@@ -4,13 +4,13 @@
 
     <groupId>org.codenergic.akinatorj</groupId>
     <artifactId>akinatorj</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
 
     <scm>
         <connection>scm:git:ssh://git@github.com/dianw/akinatorj.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/dianw/akinatorj.git</developerConnection>
         <url>https://github.com/dianw/akinatorj</url>
-        <tag>v0.0.1</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <dependencies>
