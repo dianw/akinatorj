@@ -22,16 +22,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 
 public class AkinatorJ {
-	private OkHttpClient okHttpClient;
-	private ObjectMapper objectMapper;
+	private final OkHttpClient okHttpClient;
+	private final ObjectMapper objectMapper;
 
-	public AkinatorJ(OkHttpClient okHttpClient) {
+	public AkinatorJ(OkHttpClient okHttpClient, ObjectMapper objectMapper) {
 		this.okHttpClient = okHttpClient;
-		this.objectMapper = new ObjectMapper();
+		this.objectMapper = objectMapper;
 	}
 
 	public AkinatorJ() {
-		this(new OkHttpClient());
+		this(new OkHttpClient(), new ObjectMapper());
 	}
 
 	public Session newSession(String language) throws IOException {

@@ -15,23 +15,29 @@
  */
 package org.codenergic.akinatorj.model;
 
-public class ListResponse {
-	private String completion;
-	private ListParameters parameters;
+import java.util.ArrayList;
+import java.util.List;
 
-	public String getCompletion() {
-		return completion;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class ListParameters {
+	private List<Elements> elements = new ArrayList<>();
+	private String nbObjetsPertinents;
+
+	public List<Elements> getElements() {
+		return elements;
 	}
 
-	public void setCompletion(String completion) {
-		this.completion = completion;
+	public void setElements(List<Elements> elements) {
+		this.elements = elements;
 	}
 
-	public ListParameters getParameters() {
-		return parameters;
+	@JsonProperty("NbObjetsPertinents")
+	public String getNbObjetsPertinents() {
+		return nbObjetsPertinents;
 	}
 
-	public void setParameters(ListParameters parameters) {
-		this.parameters = parameters;
+	public void setNbObjetsPertinents(String nbObjetsPertinents) {
+		this.nbObjetsPertinents = nbObjetsPertinents;
 	}
 }

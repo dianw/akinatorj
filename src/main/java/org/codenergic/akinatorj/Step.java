@@ -37,6 +37,6 @@ class Step {
 			throw new IllegalStateException("Completion: " + answerResponse.getCompletion());
 		}
 		LOGGER.debug("Step Information: {}", answerResponse.getParameters());
-		return session.updateStep(answerResponse.getParameters());
+		return session.updateStep(answerResponse.getParameters(), answerResponse.getCompletion());
 	}
 }

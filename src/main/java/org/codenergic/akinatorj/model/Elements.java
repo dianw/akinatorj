@@ -41,6 +41,43 @@ public class Elements {
 		private String pseudo;
 		private String picturePath;
 		private String absolutePicturePath;
+		private String corrupt;
+		private String relative;
+		private String flagPhoto;
+
+		@JsonProperty("absolute_picture_path")
+		public String getAbsolutePicturePath() {
+			return absolutePicturePath;
+		}
+
+		public void setAbsolutePicturePath(String absolutePicturePath) {
+			this.absolutePicturePath = absolutePicturePath;
+		}
+
+		public String getCorrupt() {
+			return corrupt;
+		}
+
+		public void setCorrupt(String corrupt) {
+			this.corrupt = corrupt;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
+		}
+
+		@JsonProperty("flag_photo")
+		public String getFlagPhoto() {
+			return flagPhoto;
+		}
+
+		public void setFlagPhoto(String flagPhoto) {
+			this.flagPhoto = flagPhoto;
+		}
 
 		public String getId() {
 			return id;
@@ -48,14 +85,6 @@ public class Elements {
 
 		public void setId(String id) {
 			this.id = id;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void setName(String name) {
-			this.name = name;
 		}
 
 		@JsonProperty("id_base")
@@ -67,39 +96,6 @@ public class Elements {
 			this.idBase = idBase;
 		}
 
-		public String getProba() {
-			return proba;
-		}
-
-		public void setProba(String proba) {
-			this.proba = proba;
-		}
-
-		public String getDescription() {
-			return description;
-		}
-
-		public void setDescription(String description) {
-			this.description = description;
-		}
-
-		@JsonProperty("valide_contrainte")
-		public String getValideContrainte() {
-			return valideContrainte;
-		}
-
-		public void setValideContrainte(String valideContrainte) {
-			this.valideContrainte = valideContrainte;
-		}
-
-		public String getRanking() {
-			return ranking;
-		}
-
-		public void setRanking(String ranking) {
-			this.ranking = ranking;
-		}
-
 		@JsonProperty("minibase_addable")
 		public String getMinibaseAddable() {
 			return minibaseAddable;
@@ -109,21 +105,12 @@ public class Elements {
 			this.minibaseAddable = minibaseAddable;
 		}
 
-		@JsonProperty("relative_id")
-		public String getRelativeId() {
-			return relativeId;
+		public String getName() {
+			return name;
 		}
 
-		public void setRelativeId(String relativeId) {
-			this.relativeId = relativeId;
-		}
-
-		public String getPseudo() {
-			return pseudo;
-		}
-
-		public void setPseudo(String pseudo) {
-			this.pseudo = pseudo;
+		public void setName(String name) {
+			this.name = name;
 		}
 
 		@JsonProperty("picture_path")
@@ -135,13 +122,54 @@ public class Elements {
 			this.picturePath = picturePath;
 		}
 
-		@JsonProperty("absolute_picture_path")
-		public String getAbsolutePicturePath() {
-			return absolutePicturePath;
+		public String getProba() {
+			return proba;
 		}
 
-		public void setAbsolutePicturePath(String absolutePicturePath) {
-			this.absolutePicturePath = absolutePicturePath;
+		public void setProba(String proba) {
+			this.proba = proba;
+		}
+
+		public String getPseudo() {
+			return pseudo;
+		}
+
+		public void setPseudo(String pseudo) {
+			this.pseudo = pseudo;
+		}
+
+		public String getRanking() {
+			return ranking;
+		}
+
+		public void setRanking(String ranking) {
+			this.ranking = ranking;
+		}
+
+		public String getRelative() {
+			return relative;
+		}
+
+		public void setRelative(String relative) {
+			this.relative = relative;
+		}
+
+		@JsonProperty("relative_id")
+		public String getRelativeId() {
+			return relativeId;
+		}
+
+		public void setRelativeId(String relativeId) {
+			this.relativeId = relativeId;
+		}
+
+		@JsonProperty("valide_contrainte")
+		public String getValideContrainte() {
+			return valideContrainte;
+		}
+
+		public void setValideContrainte(String valideContrainte) {
+			this.valideContrainte = valideContrainte;
 		}
 	}
 }

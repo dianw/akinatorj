@@ -17,6 +17,7 @@ package org.codenergic.akinatorj;
 
 import java.io.IOException;
 
+import org.codenergic.akinatorj.model.ListParameters;
 import org.codenergic.akinatorj.model.StepInformation;
 import org.junit.Test;
 
@@ -27,20 +28,23 @@ public class AkinatorJTest {
 
 	@Test
 	public void testNewSessionAndAnswer() throws IOException {
-		Session session = akinatorJ.newSession("");
+		Session session = akinatorJ.newSession("en2");
 		assertThat(session.getSessionInfo().getUid()).isNotBlank()
 				.containsPattern("[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}");
 		assertThat(session.getSessionInfo().getFrontAddr()).isNotBlank();
 		assertThat(session.getNewSessionResponse().getCompletion()).isEqualTo("OK");
 		assertThat(session.getNewSessionResponse().getParameters().getStepInformation().getStep()).isEqualTo("0");
 
-		Step step = new Step(session);
-		StepInformation stepInformation = step.answer(0);
+		StepInformation stepInformation = session.answer(0);
 		assertThat(stepInformation.getStep()).isEqualTo("1");
 		assertThat(session.getCurrentStepInformation()).isEqualTo(stepInformation);
 
-		StepInformation backStepInformation = step.back();
+		StepInformation backStepInformation = session.back();
 		assertThat(backStepInformation.getStep()).isEqualTo("0");
 		assertThat(session.getCurrentStepInformation()).isEqualTo(backStepInformation);
+
+		session.answer(0);
+		ListParameters listParameters = session.win();
+		assertThat(listParameters.getElements()).isNotNull();
 	}
 }
