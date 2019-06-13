@@ -8,6 +8,13 @@
     <artifactId>akinatorj</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <scm>
+        <connection>scm:git:ssh://git@github.com/dianw/akinatorj.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/dianw/akinatorj.git</developerConnection>
+        <url>https://github.com/dianw/akinatorj</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

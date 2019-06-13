@@ -5,6 +5,28 @@ An API wrapper for Akinator written in Java
 
 _== This project is still work in progress ==_
 
+## Quick Example
+```java
+AkinatorJ akinatorJ = new AkinatorJ();
+Session session = akinatorJ.newSession("en2");
+
+StepInformation currentStepInformation = session.getCurrentStepInformation();
+System.out.println(currentStepInformation.getQuestion());
+for (Answer answer : currentStepInformation.getAnswers()) {
+  System.out.println(answer.getAnswer());
+}
+
+StepInformation nextStepInformation = session.answer(0);
+...
+
+StepInformation previousStepInformation = session.back();
+...
+
+ListParameters listParameters = session.win();
+Elements.Element firstGuess = listParameters.getElements().get(0).getElement();
+System.out.println(firstGuess.getName() + ", " + firstGuess.getDescription());
+```
+
 ## License
 ```
 Copyright 2019 the original author or authors.
