@@ -15,8 +15,6 @@
  */
 package org.codenergic.akinatorj;
 
-import java.io.IOException;
-
 import org.codenergic.akinatorj.model.ListParameters;
 import org.codenergic.akinatorj.model.StepInformation;
 import org.junit.Test;
@@ -27,7 +25,7 @@ public class AkinatorJTest {
 	private AkinatorJ akinatorJ = new AkinatorJ();
 
 	@Test
-	public void testNewSessionAndAnswer() throws IOException {
+	public void testNewSessionAndAnswer() {
 		Session session = akinatorJ.newSession("en2");
 		assertThat(session.getSessionInfo().getUid()).isNotBlank()
 				.containsPattern("[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}");

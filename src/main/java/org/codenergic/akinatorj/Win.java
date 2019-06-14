@@ -1,7 +1,5 @@
 package org.codenergic.akinatorj;
 
-import java.io.IOException;
-
 import org.codenergic.akinatorj.model.ListParameters;
 import org.codenergic.akinatorj.model.ListResponse;
 
@@ -12,7 +10,7 @@ class Win {
 		this.session = session;
 	}
 
-	ListParameters win() throws IOException {
+	ListParameters win() {
 		String winUrl = String.format(Urls.WIN_URL, session.getServer(), session.getSession(),
 				session.getSignature(), session.getStep());
 		ListResponse listResponse = Urls.sendRequest(session.getAkinatorJ(), winUrl, ListResponse.class);

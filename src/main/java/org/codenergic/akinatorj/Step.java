@@ -1,7 +1,5 @@
 package org.codenergic.akinatorj;
 
-import java.io.IOException;
-
 import org.codenergic.akinatorj.model.AnswerResponse;
 import org.codenergic.akinatorj.model.StepInformation;
 import org.slf4j.Logger;
@@ -15,20 +13,20 @@ class Step {
 		this.session = session;
 	}
 
-	StepInformation answer(int answer) throws IOException {
+	StepInformation answer(int answer) {
 		if (answer < 0 || answer > 4)
 			throw new IllegalArgumentException("Answer must be between 0 to 4");
 		return sendAnswer(answer);
 	}
 
-	StepInformation back() throws IOException {
+	StepInformation back() {
 		if ("0".equals(session.getCurrentStepInformation().getStep())) {
 			throw new IllegalStateException("You're in the first question");
 		}
 		return sendAnswer(-1);
 	}
 
-	private StepInformation sendAnswer(int answer) throws IOException {
+	private StepInformation sendAnswer(int answer) {
 		String answerUrl = String.format(Urls.ANSWER_URL, session.getServer(), session.getSession(),
 				session.getSignature(), session.getStep(), String.valueOf(answer));
 		LOGGER.debug("Sending answer: {}", answerUrl);

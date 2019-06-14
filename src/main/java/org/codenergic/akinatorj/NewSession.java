@@ -15,7 +15,6 @@
  */
 package org.codenergic.akinatorj;
 
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,7 +31,7 @@ class NewSession {
 		this.akinatorJ = akinatorJ;
 	}
 
-	Session newSession(String language) throws IOException {
+	Session newSession(String language) {
 		SessionInfo sessionInfo = getSessionInfo();
 		String server = Urls.getServerUrl(language);
 		String newSessionUrl = String.format(Urls.NEW_SESSION_URL, server, sessionInfo.getUid(), sessionInfo.getFrontAddr());
@@ -46,7 +45,7 @@ class NewSession {
 		return new Session(akinatorJ, sessionInfo, server, newSessionResponse);
 	}
 
-	private SessionInfo getSessionInfo() throws IOException {
+	private SessionInfo getSessionInfo() {
 		String responseBody = Urls.sendRequest(akinatorJ, "https://en.akinator.com/game");
 		Matcher matcher = SESSION_PATTERN.matcher(responseBody);
 		if (!matcher.find()) {

@@ -55,15 +55,23 @@ class Urls {
 		return servers.get(language.toLowerCase().trim());
 	}
 
-	static String sendRequest(AkinatorJ akinatorJ, String url) throws IOException {
-		Request request = new Request.Builder().url(url).build();
-		Response response = akinatorJ.getOkHttpClient().newCall(request).execute();
-		return response.body().string();
+	static String sendRequest(AkinatorJ akinatorJ, String url) {
+		try {
+			Request request = new Request.Builder().url(url).build();
+			Response response = akinatorJ.getOkHttpClient().newCall(request).execute();
+			return response.body().string();
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
-	static <T> T sendRequest(AkinatorJ akinatorJ, String url, Class<T> clazz) throws IOException {
-		Request request = new Request.Builder().url(url).build();
-		Response response = akinatorJ.getOkHttpClient().newCall(request).execute();
-		return akinatorJ.getObjectMapper().readValue(response.body().bytes(), clazz);
+	static <T> T sendRequest(AkinatorJ akinatorJ, String url, Class<T> clazz) {
+		try {
+			Request request = new Request.Builder().url(url).build();
+			Response response = akinatorJ.getOkHttpClient().newCall(request).execute();
+			return akinatorJ.getObjectMapper().readValue(response.body().bytes(), clazz);
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 }

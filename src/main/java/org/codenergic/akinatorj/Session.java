@@ -1,7 +1,5 @@
 package org.codenergic.akinatorj;
 
-import java.io.IOException;
-
 import org.codenergic.akinatorj.model.ListParameters;
 import org.codenergic.akinatorj.model.NewSessionResponse;
 import org.codenergic.akinatorj.model.StepInformation;
@@ -21,11 +19,11 @@ public class Session {
 		this.completion = newSessionResponse.getCompletion();
 	}
 
-	public StepInformation answer(int answer) throws IOException {
+	public StepInformation answer(int answer) {
 		return new Step(this).answer(answer);
 	}
 
-	public StepInformation back() throws IOException {
+	public StepInformation back() {
 		return new Step(this).back();
 	}
 
@@ -71,7 +69,7 @@ public class Session {
 		return stepInformation;
 	}
 
-	public ListParameters win() throws IOException {
+	public ListParameters win() {
 		return new Win(this).win();
 	}
 }

@@ -1,5 +1,6 @@
 # AkinatorJ
 [![Build Status](https://travis-ci.org/dianw/akinatorj.svg?branch=master)](https://travis-ci.org/dianw/akinatorj)
+[![](https://jitpack.io/v/dianw/akinatorj.svg)](https://jitpack.io/#dianw/akinatorj)
 
 An API wrapper for Akinator written in Java
 
