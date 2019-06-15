@@ -55,7 +55,6 @@ public class AkinatorJTest {
 
 		StepInformation backStepInformation = session.back();
 		assertThat(session.getCurrentStepInformation()).isEqualTo(backStepInformation);
-		assertThat(session.getProgression()).isLessThanOrEqualTo(.0);
 
 		session.answer(0);
 		ListParameters listParameters = session.win();
