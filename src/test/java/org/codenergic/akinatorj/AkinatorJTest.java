@@ -19,27 +19,43 @@ import org.codenergic.akinatorj.model.ListParameters;
 import org.codenergic.akinatorj.model.StepInformation;
 import org.junit.Test;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AkinatorJTest {
-	private AkinatorJ akinatorJ = new AkinatorJ();
+	private final AkinatorJ akinatorJ;
+
+	public AkinatorJTest() {
+		HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+		httpLoggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+		akinatorJ = new AkinatorJ(new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build(),
+				new ObjectMapper());
+	}
 
 	@Test
 	public void testNewSessionAndAnswer() {
 		Session session = akinatorJ.newSession("en2");
-		assertThat(session.getSessionInfo().getUid()).isNotBlank()
+		assertThat(session).isInstanceOf(SessionImpl.class);
+		assertThat(((SessionImpl) session).getSessionInfo().getUid()).isNotBlank()
 				.containsPattern("[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}");
-		assertThat(session.getSessionInfo().getFrontAddr()).isNotBlank();
+		assertThat(((SessionImpl) session).getSessionInfo().getFrontAddr()).isNotBlank();
 		assertThat(session.getNewSessionResponse().getCompletion()).isEqualTo("OK");
 		assertThat(session.getNewSessionResponse().getParameters().getStepInformation().getStep()).isEqualTo("0");
+		assertThat(session.getCompletion()).isEqualTo("OK");
+		assertThat(session.getProgression()).isLessThanOrEqualTo(.0);
 
 		StepInformation stepInformation = session.answer(0);
 		assertThat(stepInformation.getStep()).isEqualTo("1");
 		assertThat(session.getCurrentStepInformation()).isEqualTo(stepInformation);
+		assertThat(session.getProgression()).isGreaterThan(.0);
 
 		StepInformation backStepInformation = session.back();
-		assertThat(backStepInformation.getStep()).isEqualTo("0");
 		assertThat(session.getCurrentStepInformation()).isEqualTo(backStepInformation);
+		assertThat(session.getProgression()).isLessThanOrEqualTo(.0);
 
 		session.answer(0);
 		ListParameters listParameters = session.win();

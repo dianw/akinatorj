@@ -2,14 +2,11 @@ package org.codenergic.akinatorj;
 
 import org.codenergic.akinatorj.model.AnswerResponse;
 import org.codenergic.akinatorj.model.StepInformation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 class Step {
-	private static final Logger LOGGER = LoggerFactory.getLogger(Step.class);
-	private final Session session;
+	private final SessionImpl session;
 
-	Step(Session session) {
+	Step(SessionImpl session) {
 		this.session = session;
 	}
 
@@ -29,12 +26,10 @@ class Step {
 	private StepInformation sendAnswer(int answer) {
 		String answerUrl = String.format(Urls.ANSWER_URL, session.getServer(), session.getSession(),
 				session.getSignature(), session.getStep(), String.valueOf(answer));
-		LOGGER.debug("Sending answer: {}", answerUrl);
 		AnswerResponse answerResponse = Urls.sendRequest(session.getAkinatorJ(), answerUrl, AnswerResponse.class);
 		if (!answerResponse.getCompletion().equals("OK")) {
 			throw new IllegalStateException("Completion: " + answerResponse.getCompletion());
 		}
-		LOGGER.debug("Step Information: {}", answerResponse.getParameters());
 		return session.updateStep(answerResponse.getParameters(), answerResponse.getCompletion());
 	}
 }

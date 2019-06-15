@@ -4,9 +4,9 @@ import org.codenergic.akinatorj.model.ListParameters;
 import org.codenergic.akinatorj.model.ListResponse;
 
 class Win {
-	private final Session session;
+	private final SessionImpl session;
 
-	Win(Session session) {
+	Win(SessionImpl session) {
 		this.session = session;
 	}
 
