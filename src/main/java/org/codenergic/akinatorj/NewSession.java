@@ -15,6 +15,7 @@
  */
 package org.codenergic.akinatorj;
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,7 +32,7 @@ class NewSession {
 	Session newSession(String language) {
 		SessionInfo sessionInfo = getSessionInfo();
 		String server = Urls.getServerUrl(language);
-		String newSessionUrl = String.format(Urls.NEW_SESSION_URL, server, sessionInfo.getUid(), sessionInfo.getFrontAddr());
+		String newSessionUrl = String.format(Urls.NEW_SESSION_URL, server, new Date().getTime(), sessionInfo.getUid(), sessionInfo.getFrontAddr());
 		NewSessionResponse newSessionResponse = Urls.sendRequest(akinatorJ, newSessionUrl, NewSessionResponse.class);
 		if (!newSessionResponse.getCompletion().equals("OK")) {
 			throw new IllegalStateException("Completion: " + newSessionResponse.getCompletion());

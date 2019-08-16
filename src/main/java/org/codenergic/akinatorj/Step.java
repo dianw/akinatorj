@@ -1,5 +1,7 @@
 package org.codenergic.akinatorj;
 
+import java.util.Date;
+
 import org.codenergic.akinatorj.model.AnswerResponse;
 import org.codenergic.akinatorj.model.StepInformation;
 
@@ -24,7 +26,7 @@ class Step {
 	}
 
 	private StepInformation sendAnswer(int answer) {
-		String answerUrl = String.format(Urls.ANSWER_URL, session.getServer(), session.getSession(),
+		String answerUrl = String.format(Urls.ANSWER_URL, session.getServer(), new Date().getTime(), session.getSession(),
 				session.getSignature(), session.getStep(), String.valueOf(answer));
 		AnswerResponse answerResponse = Urls.sendRequest(session.getAkinatorJ(), answerUrl, AnswerResponse.class);
 		if (!answerResponse.getCompletion().equals("OK")) {

@@ -38,7 +38,7 @@ public class AkinatorJTest {
 
 	@Test
 	public void testNewSessionAndAnswer() {
-		Session session = akinatorJ.newSession("en2");
+		Session session = akinatorJ.newSession("en");
 		assertThat(session).isInstanceOf(SessionImpl.class);
 		assertThat(((SessionImpl) session).getSessionInfo().getUid()).isNotBlank()
 				.containsPattern("[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}");
