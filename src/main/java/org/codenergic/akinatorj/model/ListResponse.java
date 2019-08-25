@@ -15,23 +15,13 @@
  */
 package org.codenergic.akinatorj.model;
 
-public class ListResponse {
-	private String completion;
-	private ListParameters parameters;
+import java.io.Serializable;
 
-	public String getCompletion() {
-		return completion;
-	}
+import org.immutables.value.Value;
 
-	public void setCompletion(String completion) {
-		this.completion = completion;
-	}
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-	public ListParameters getParameters() {
-		return parameters;
-	}
-
-	public void setParameters(ListParameters parameters) {
-		this.parameters = parameters;
-	}
+@Value.Immutable
+@JsonDeserialize(builder = ImmutableListResponse.Builder.class)
+public interface ListResponse extends Response<ListParameters>, Serializable {
 }

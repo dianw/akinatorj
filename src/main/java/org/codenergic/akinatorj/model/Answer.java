@@ -15,31 +15,14 @@
  */
 package org.codenergic.akinatorj.model;
 
-public class Answer {
-	private int ordinal;
-	private String answer;
+import java.io.Serializable;
 
-	public String getAnswer() {
-		return answer;
-	}
+import org.immutables.value.Value;
 
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-	public int getOrdinal() {
-		return ordinal;
-	}
-
-	public void setOrdinal(int ordinal) {
-		this.ordinal = ordinal;
-	}
-
-	@Override
-	public String toString() {
-		return "Answer{" +
-				"ordinal=" + ordinal +
-				", answer='" + answer + '\'' +
-				'}';
-	}
+@Value.Immutable
+@JsonDeserialize(builder = ImmutableAnswer.Builder.class)
+public interface Answer extends Serializable {
+	String getAnswer();
 }

@@ -15,54 +15,22 @@
  */
 package org.codenergic.akinatorj.model;
 
+import java.io.Serializable;
+
+import org.immutables.value.Value;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-public class Identification {
-	private long channel;
-	private String session;
-	private String signature;
-	private String challengeAuth;
-
+@Value.Immutable
+@JsonDeserialize(builder = ImmutableIdentification.Builder.class)
+public interface Identification extends Serializable {
 	@JsonProperty("challenge_auth")
-	public String getChallengeAuth() {
-		return challengeAuth;
-	}
+	String getChallengeAuth();
 
-	public void setChallengeAuth(String challengeAuth) {
-		this.challengeAuth = challengeAuth;
-	}
+	long getChannel();
 
-	public long getChannel() {
-		return channel;
-	}
+	String getSession();
 
-	public void setChannel(long channel) {
-		this.channel = channel;
-	}
-
-	public String getSession() {
-		return session;
-	}
-
-	public void setSession(String session) {
-		this.session = session;
-	}
-
-	public String getSignature() {
-		return signature;
-	}
-
-	public void setSignature(String signature) {
-		this.signature = signature;
-	}
-
-	@Override
-	public String toString() {
-		return "Identification{" +
-				"channel=" + channel +
-				", session='" + session + '\'' +
-				", signature='" + signature + '\'' +
-				", challengeAuth='" + challengeAuth + '\'' +
-				'}';
-	}
+	String getSignature();
 }

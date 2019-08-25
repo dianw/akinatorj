@@ -15,7 +15,9 @@
  */
 package org.codenergic.akinatorj;
 
-class SessionInfo {
+import java.io.Serializable;
+
+class SessionInfo implements Serializable {
 	private String uid;
 	private String frontAddr;
 

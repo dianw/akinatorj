@@ -15,23 +15,13 @@
  */
 package org.codenergic.akinatorj.model;
 
-public class AnswerResponse {
-	private String completion;
-	private StepInformation parameters;
+import java.io.Serializable;
 
-	public String getCompletion() {
-		return completion;
-	}
+import org.immutables.value.Value;
 
-	public void setCompletion(String completion) {
-		this.completion = completion;
-	}
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-	public StepInformation getParameters() {
-		return parameters;
-	}
-
-	public void setParameters(StepInformation parameters) {
-		this.parameters = parameters;
-	}
+@Value.Immutable
+@JsonDeserialize(builder = ImmutableAnswerResponse.Builder.class)
+public interface AnswerResponse extends Response<StepInformation>, Serializable {
 }

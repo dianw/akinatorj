@@ -15,29 +15,19 @@
  */
 package org.codenergic.akinatorj.model;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
+import org.immutables.value.Value;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-public class ListParameters {
-	private List<Elements> elements = new ArrayList<>();
-	private String nbObjetsPertinents;
-
-	public List<Elements> getElements() {
-		return elements;
-	}
-
-	public void setElements(List<Elements> elements) {
-		this.elements = elements;
-	}
+@Value.Immutable
+@JsonDeserialize(builder = ImmutableListParameters.Builder.class)
+public interface ListParameters extends Serializable {
+	List<Elements> getElements();
 
 	@JsonProperty("NbObjetsPertinents")
-	public String getNbObjetsPertinents() {
-		return nbObjetsPertinents;
-	}
-
-	public void setNbObjetsPertinents(String nbObjetsPertinents) {
-		this.nbObjetsPertinents = nbObjetsPertinents;
-	}
+	String getNbObjetsPertinents();
 }

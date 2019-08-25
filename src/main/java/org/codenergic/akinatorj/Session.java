@@ -1,15 +1,18 @@
 package org.codenergic.akinatorj;
 
+import java.io.Serializable;
 import java.util.Optional;
 
 import org.codenergic.akinatorj.model.ListParameters;
 import org.codenergic.akinatorj.model.NewSessionResponse;
 import org.codenergic.akinatorj.model.StepInformation;
 
-public interface Session {
+public interface Session extends Serializable {
 	StepInformation answer(int answer);
 
 	StepInformation back();
+
+	Session bind(AkinatorJ akinatorJ);
 
 	AkinatorJ getAkinatorJ();
 

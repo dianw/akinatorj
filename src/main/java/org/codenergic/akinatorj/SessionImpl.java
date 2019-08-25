@@ -1,14 +1,18 @@
 package org.codenergic.akinatorj;
 
+import java.io.Serializable;
+
+import org.codenergic.akinatorj.model.ImmutableNewSessionParameters;
+import org.codenergic.akinatorj.model.ImmutableNewSessionResponse;
 import org.codenergic.akinatorj.model.ListParameters;
 import org.codenergic.akinatorj.model.NewSessionResponse;
 import org.codenergic.akinatorj.model.StepInformation;
 
-class SessionImpl implements Session {
-	private final AkinatorJ akinatorJ;
+class SessionImpl implements Session, Serializable {
+	private transient AkinatorJ akinatorJ;
 	private final SessionInfo sessionInfo;
 	private final String server;
-	private final NewSessionResponse newSessionResponse;
+	private NewSessionResponse newSessionResponse;
 
 	SessionImpl(AkinatorJ akinatorJ, SessionInfo sessionInfo, String server, NewSessionResponse newSessionResponse) {
 		this.akinatorJ = akinatorJ;
@@ -25,6 +29,12 @@ class SessionImpl implements Session {
 	@Override
 	public StepInformation back() {
 		return new Step(this).back();
+	}
+
+	@Override
+	public Session bind(AkinatorJ akinatorJ) {
+		this.akinatorJ = akinatorJ;
+		return this;
 	}
 
 	@Override
@@ -58,8 +68,14 @@ class SessionImpl implements Session {
 	}
 
 	StepInformation updateStep(StepInformation stepInformation, String completion) {
-		newSessionResponse.getParameters().setStepInformation(stepInformation);
-		newSessionResponse.setCompletion(completion);
+		newSessionResponse = ImmutableNewSessionResponse.builder()
+				.from(newSessionResponse)
+				.completion(completion)
+				.parameters(ImmutableNewSessionParameters.builder()
+						.from(newSessionResponse.getParameters())
+						.stepInformation(stepInformation)
+						.build())
+				.build();
 		return stepInformation;
 	}
 
