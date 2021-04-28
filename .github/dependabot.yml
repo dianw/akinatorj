@@ -1,0 +1,17 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "22:00"
+  open-pull-requests-limit: 10
+  assignees:
+  - dianw
+  ignore:
+  - dependency-name: com.squareup.okhttp3:logging-interceptor
+    versions:
+    - 4.10.0-RC1
+  - dependency-name: com.squareup.okhttp3:okhttp
+    versions:
+    - 4.9.0
